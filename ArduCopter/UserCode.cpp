@@ -1,8 +1,13 @@
 #include "Copter.h"
+#include "GCS_Mavlink.h"
+#include "UserParameters.h"
+
 
 #ifdef USERHOOK_INIT
 void Copter::userhook_init()
-{
+{   
+    UserParameters u1=new UserParameters();
+    haL.uartE->begin(57600);
     // put your initialisation code here
     // this will be called once at start-up
 }
@@ -11,13 +16,15 @@ void Copter::userhook_init()
 #ifdef USERHOOK_FASTLOOP
 void Copter::userhook_FastLoop()
 {
-    // put your 100Hz code here
+        u1.send_data();
+        // put your 100Hz code here
 }
 #endif
 
 #ifdef USERHOOK_50HZLOOP
 void Copter::userhook_50Hz()
 {
+
     // put your 50Hz code here
 }
 #endif
